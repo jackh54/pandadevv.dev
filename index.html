@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"></html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,15 +8,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="scripts.js"></script>
     <style>
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            backdrop-filter: blur(8px);
+        }
+    
+        body {
+            padding-top: 80px;
+        }
+
         #typing-text {
             display: inline;
         }
-
+    
         #cursor {
             display: inline;
             animation: blink 0.7s infinite;
         }
-
+    
         @keyframes blink {
             0%, 100% {
                 opacity: 1;
@@ -25,15 +38,36 @@
                 opacity: 0;
             }
         }
-
-        #modal {
-            display: none;
+    
+        .glass-effect {
+            background: linear-gradient(135deg, rgba(55, 65, 81, 0.7), rgba(31, 41, 55, 0.7));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        .gradient-button {
+            background: linear-gradient(45deg, #0d9488, #3b82f6);
+            transition: all 0.3s ease;
+        }
+
+        .gradient-button:hover {
+            background: linear-gradient(45deg, #0f766e, #2563eb);
+            transform: scale(1.05);
+        }
+
+        #modal {
+            backdrop-filter: blur(8px);
+        }
+
+        #modal .modal-content {
+            background: linear-gradient(135deg, rgba(55, 65, 81, 0.9), rgba(31, 41, 55, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    
         #modal.show {
             display: flex;
         }
-
+    
         @keyframes fadeInUp {
             from {
                 transform: translate3d(0, 40px, 0);
@@ -44,7 +78,7 @@
                 opacity: 1;
             }
         }
-
+    
         .animate-fadeInUp {
             animation: fadeInUp 1s ease-out;
         }
@@ -66,7 +100,7 @@
         </div>
     </header>
 
-    <section id="hero" class="h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 to-gray-700">
+    <section id="hero" class="h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 via-gray-800 to-gray-700">
         <div class="text-center animate-fadeInUp">
             <h2 class="text-4xl md:text-6xl font-bold mb-4">
                 <span id="typing-text"></span>
@@ -77,7 +111,7 @@
         </div>
     </section>
 
-    <section id="about" class="py-12 md:py-16 bg-gray-700">
+    <section id="about" class="py-12 md:py-16 bg-gradient-to-b from-gray-700 via-gray-600 to-gray-500">
         <div class="container mx-auto animate-fadeInUp px-6">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">About Me</h2>
             <div class="flex flex-col md:flex-row items-center">
@@ -91,30 +125,30 @@
         </div>
     </section>
 
-    <section id="projects" class="py-12 md:py-16 bg-gray-600">
+    <section id="projects" class="py-12 md:py-16 bg-gradient-to-b from-gray-500 via-gray-600 to-gray-700">
         <div class="container mx-auto animate-fadeInUp px-6">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Projects</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-gray-700 p-4 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div class="glass-effect p-4 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <h3 class="text-xl md:text-2xl font-semibold mb-4">ToolKit</h3>
                     <p class="mb-4">An ad-free, community-built website offering practical tools like RGB pickers and encoders, designed for easy contribution and use.</p>
                     <a href="https://github.com/jackh54/ToolKit" class="text-teal-400 hover:text-teal-300">Learn more</a>
                 </div>
-                <div class="bg-gray-700 p-4 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                <div class="glass-effect p-4 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
                     <h3 class="text-xl md:text-2xl font-semibold mb-4">Maze Solver</h3>
                     <p class="mb-4">An interactive maze solver that lets users upload maze images, set start/end points, and visualize the solving process using pathfinding algorithms.</p>
                     <a href="https://github.com/jackh54/Maze-Solver" class="text-teal-400 hover:text-teal-300">Learn more</a>
                 </div>
-                <div class="bg-gray-700 p-4 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-                    <h3 class="text-xl md:text-2xl font-semibold mb-4">Coming soon...</h3>
-                    <p class="mb-4">Stay tuned for one of my biggest projects yet!</p>
-                    <a href="#" class="text-teal-400 hover:text-teal-300">Learn more</a>
+                <div class="glass-effect p-4 md:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    <h3 class="text-xl md:text-2xl font-semibold mb-4">Sentiment Analysis</h3>
+                    <p class="mb-4">A Python-based application that analyzes sentiment and emotions from text using TextBlob, NLTK, and VADER. It provides visualizations for sentiment trends and comparative analysis for multiple texts.</p>
+                    <a href="https://github.com/jackh54/Sentiment-Analyis" class="text-teal-400 hover:text-teal-300">View Project</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-12 md:py-16 bg-gray-700">
+    <section id="contact" class="py-12 md:py-16 bg-gradient-to-b from-gray-700 to-gray-900">
         <div class="container mx-auto animate-fadeInUp px-6">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12">Get In Touch</h2>
             <form action="https://formspree.io/f/xdknvdbn" method="POST" class="max-w-lg mx-auto" id="contact-form">
@@ -132,13 +166,13 @@
                 </div>
                 <div class="text-center">
                     <button type="submit"
-                        class="px-6 md:px-8 py-3 md:py-4 bg-gradient-to-r from-teal-500 to-blue-500 rounded-full hover:bg-teal-600 transition-all duration-300 transform hover:scale-110">Send Message</button>
+                        class="gradient-button px-6 md:px-8 py-3 md:py-4 rounded-full">Send Message</button>
                 </div>
             </form>
         </div>
     </section>
 
-    <footer class="py-6 md:py-8 bg-gray-900">
+    <footer class="py-6 md:py-8 bg-gradient-to-b from-gray-900 to-black">
         <div class="container mx-auto text-center mb-4">
             <a href="https://github.com/jackh54" target="_blank" class="text-gray-200 mx-2 hover:text-gray-400">
                 <i class="fab fa-github text-2xl"></i>
@@ -152,10 +186,12 @@
         </div>
     </footer>
 
-    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-gray-700 p-6 rounded-lg shadow-lg text-center">
-            <p id="modal-message" class="text-lg mb-4"></p>
-            <button id="modal-close" class="px-4 py-2 bg-gradient-to-r from-teal-500 to-blue-500 rounded-full hover:bg-teal-600">Close</button>
+    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-30 hidden">
+        <div class="modal-content p-6 rounded-lg shadow-xl text-center max-w-md w-full mx-4">
+            <p id="modal-message" class="text-lg mb-4 text-gray-100"></p>
+            <button id="modal-close" class="gradient-button px-6 py-2 rounded-full text-white font-medium">
+                Close
+            </button>
         </div>
     </div>
 
