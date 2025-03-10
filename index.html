@@ -96,6 +96,7 @@
             --primary-gradient: linear-gradient(135deg, #0ea5e9, #10b981);
             --glass-bg: rgba(17, 25, 40, 0.75);
             --border-light: rgba(255, 255, 255, 0.125);
+            --card-hover-shadow: 0 10px 30px -5px rgba(14, 165, 233, 0.3);
         }
 
         * {
@@ -126,11 +127,9 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(
-                circle at 50% 50%,
-                rgba(14, 165, 233, 0.05),
-                transparent 70%
-            );
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(14, 165, 233, 0.05), transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.05), transparent 40%);
             pointer-events: none;
         }
 
@@ -198,13 +197,35 @@
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
             border: 1px solid var(--border-light);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.05),
+                transparent
+            );
+            transition: 0.5s;
         }
 
         .glass-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--card-hover-shadow);
             border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
         }
 
         .gradient-text {
@@ -212,6 +233,40 @@
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            position: relative;
+            display: inline-block;
+        }
+
+        .gradient-text::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .gradient-text:hover::after {
+            width: 100%;
+        }
+
+        .project-card i {
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover i {
+            transform: scale(1.2);
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
         }
 
         .gradient-border {
@@ -219,6 +274,8 @@
             border: 1px solid transparent;
             background: linear-gradient(var(--glass-bg), var(--glass-bg)) padding-box,
                         var(--primary-gradient) border-box;
+            animation: shimmer 3s infinite linear;
+            background-size: 200% 100%;
         }
 
         .gradient-button {
@@ -379,24 +436,33 @@
             <div class="container mx-auto max-w-6xl">
                 <h2 class="text-4xl font-bold text-center mb-16 gradient-text">Projects</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="glass-card rounded-2xl p-8 project-card">
-                        <h3 class="text-2xl font-semibold mb-4 gradient-text">ToolKit</h3>
-                        <p class="text-gray-400 mb-6">An ad-free, community-built website offering practical tools like RGB pickers and encoders, designed for easy contribution and use.</p>
-                        <a href="https://github.com/jackh54/ToolKit" class="inline-flex items-center text-teal-400 hover:text-teal-300">
-                            Learn more <i class="fas fa-arrow-right ml-2"></i>
+                    <div class="glass-card rounded-2xl p-8 project-card group">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-clock text-2xl mr-3 gradient-text"></i>
+                            <h3 class="text-2xl font-semibold gradient-text">Discord Timestamp Generator</h3>
+                        </div>
+                        <p class="text-gray-400 mb-6">A modern, user-friendly tool for generating Discord-compatible timestamps with natural language support. Built with Vue.js and featuring a sleek dark mode interface.</p>
+                        <a href="https://timestamp.pandadevv.dev" class="inline-flex items-center text-teal-400 hover:text-teal-300 transition-all duration-300 group-hover:translate-x-2">
+                            View Project <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     </div>
-                    <div class="glass-card rounded-2xl p-8 project-card">
-                        <h3 class="text-2xl font-semibold mb-4 gradient-text">Maze Solver</h3>
+                    <div class="glass-card rounded-2xl p-8 project-card group">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-maze text-2xl mr-3 gradient-text"></i>
+                            <h3 class="text-2xl font-semibold gradient-text">Maze Solver</h3>
+                        </div>
                         <p class="text-gray-400 mb-6">An interactive maze solver that lets users upload maze images, set start/end points, and visualize the solving process using pathfinding algorithms.</p>
-                        <a href="https://github.com/jackh54/Maze-Solver" class="inline-flex items-center text-teal-400 hover:text-teal-300">
+                        <a href="https://github.com/jackh54/Maze-Solver" class="inline-flex items-center text-teal-400 hover:text-teal-300 transition-all duration-300 group-hover:translate-x-2">
                             Learn more <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     </div>
-                    <div class="glass-card rounded-2xl p-8 project-card">
-                        <h3 class="text-2xl font-semibold mb-4 gradient-text">Sentiment Analysis</h3>
+                    <div class="glass-card rounded-2xl p-8 project-card group">
+                        <div class="flex items-center mb-4">
+                            <i class="fas fa-brain text-2xl mr-3 gradient-text"></i>
+                            <h3 class="text-2xl font-semibold gradient-text">Sentiment Analysis</h3>
+                        </div>
                         <p class="text-gray-400 mb-6">A Python-based application that analyzes sentiment and emotions from text using TextBlob, NLTK, and VADER with visualizations.</p>
-                        <a href="https://github.com/jackh54/Sentiment-Analyis" class="inline-flex items-center text-teal-400 hover:text-teal-300">
+                        <a href="https://github.com/jackh54/Sentiment-Analyis" class="inline-flex items-center text-teal-400 hover:text-teal-300 transition-all duration-300 group-hover:translate-x-2">
                             View Project <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     </div>
@@ -435,6 +501,12 @@
             <div class="flex justify-center space-x-6 mb-8">
                 <a href="https://github.com/jackh54" target="_blank" class="social-icon text-2xl">
                     <i class="fab fa-github"></i>
+                </a>
+                <a href="https://x.com/thepandadevv" target="_blank" class="social-icon text-2xl">
+                    <i class="fa-brands fa-x-twitter"></i>
+                </a>
+                <a href="https://guns.lol/pandadev" target="_blank" class="social-icon text-2xl">
+                    <i class="fa-solid fa-gun"></i>
                 </a>
                 <a href="https://www.buymeacoffee.com/pandadevv" target="_blank" class="social-icon text-2xl">
                     <i class="fas fa-coffee"></i>
